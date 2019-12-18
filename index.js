@@ -89,8 +89,11 @@ function processLastItem(list, cb) {
  * should return 1000.
 */
 function processSum(list, cb) {
-  
-
+  let sum = 0;
+  list.forEach(function(value){
+    sum = sum + value;
+  });
+    return cb(sum);
 }
 
 /**
@@ -274,12 +277,13 @@ return total + (runner.donation);
  * etc
 */
 function counterMaker() {
-  // BROKEN CODE STARTS
-  const count = 0;
-  function counter() {
-    ++count
-  }
-  // BROKEN CODE ENDS
+ 
+  let count = 0;
+  return function counter() {
+    return count++;
+  };
+ 
+
 }
 
 /**
@@ -302,8 +306,16 @@ function counterMaker() {
  * counter() // should return 0
  * etc
 */
-function counterMakerWithLimit(/* CODE HERE */) {
-  /* CODE HERE */
+function counterMakerWithLimit(value) {
+  let count = 0;
+  return function(){
+    if(count <= value){
+      return count++;
+    }else if(count > value){
+      count = 0;
+      return count++;
+    }
+  }
 }
 
 /////////////// END OF CHALLENGE ///////////////
